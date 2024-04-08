@@ -1,6 +1,8 @@
 import 'package:expense_app/models/expense.dart';
 import 'package:expense_app/widgets/expense_container/expenses_list.dart';
+import 'package:expense_app/widgets/new_expense.dart';
 import 'package:flutter/material.dart';
+
 class Expenses extends StatefulWidget{
   const Expenses({super.key});
 
@@ -35,7 +37,7 @@ class _ExpensesState extends State<Expenses>{
       // and The location in the tree where this widget builds.
       context: context,
       // If you see builder means must provide a function as a value
-      builder: (ctx)  => const Text("This is Add Expense Overlay"),
+      builder: (ctx)  => const NewExpense(),
     );
   }
   @override  
