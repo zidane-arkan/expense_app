@@ -40,30 +40,27 @@ class _ExpensesState extends State<Expenses>{
   }
   @override  
   Widget build(BuildContext context){
-    return MaterialApp(
-      theme: ThemeData(useMaterial3: true),
-      home: Scaffold(
-        appBar: AppBar(
-          title : const Text("Expense Tracker App"),
-          backgroundColor: Colors.purple,
-          actions: [
-            IconButton(
-              onPressed: _openAddExpense, 
-              icon: const Icon(Icons.add_rounded),
-              color: Colors.white,
-            )
-          ],
-        ),
-        body: Column(
-          children: [
-            const Text(
-              "The Chart"
-            ),
-            Expanded(
-              child: ExpensesList(expenses: expenses),
-            ),
-          ],  
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title : const Text("Expense Tracker App"),
+        backgroundColor: Colors.purple,
+        actions: [
+          IconButton(
+            onPressed: _openAddExpense, 
+            icon: const Icon(Icons.add_rounded),
+            color: Colors.white,
+          )
+        ],
+      ),
+      body: Column(
+        children: [
+          const Text(
+            "The Chart"
+          ),
+          Expanded(
+            child: ExpensesList(expenses: expenses),
+          ),
+        ],  
       ),
     );
   }
