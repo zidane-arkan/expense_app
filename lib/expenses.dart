@@ -1,6 +1,6 @@
 import 'package:expense_app/models/expense.dart';
+import 'package:expense_app/widgets/expense_container/expenses_list.dart';
 import 'package:flutter/material.dart';
-
 class Expenses extends StatefulWidget{
   const Expenses({super.key});
 
@@ -13,7 +13,7 @@ class Expenses extends StatefulWidget{
 
 class _ExpensesState extends State<Expenses>{
   
-  var expenses = [
+  List<Expense> expenses = [
     Expense(
       title: "Flutter Course",
       amount: 19.99,
@@ -27,17 +27,20 @@ class _ExpensesState extends State<Expenses>{
       category: Category.leisure,
     ),
   ];
+
   @override  
   Widget build(BuildContext context){
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "The Chart"
             ),
-            Text("Expenses List..."),
+            Expanded(
+              child: ExpensesList(expenses: expenses),
+            ),
           ],  
         ),
       ),
