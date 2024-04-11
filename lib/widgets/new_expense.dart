@@ -3,7 +3,8 @@ import "package:flutter/material.dart";
 import 'package:intl/intl.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  const NewExpense({required this.onNewExpense ,super.key});
+  final void Function(Expense) onNewExpense;
 
   @override
   State<NewExpense> createState(){
@@ -40,6 +41,38 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
+  void _submitExpenseData() {
+    final enteredAmount = double.tryParse(_amountsController.text); // tryParse only parse number in text format
+    final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+    if(_titleController.text.trim().isEmpty || amountIsInvalid || _selectedDate == null) {
+      // Show error message
+      showDialog(
+        context: context, 
+        builder: (ctx) => AlertDialog(
+          title: const Text("Invalid input"),
+          content: const Text('Please make sure a  valid title, amount, date and category'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              }, 
+              child: const Text("Ok")
+            )
+          ],
+        )
+      );
+    }else {
+      widget.onNewExpense(
+        Expense(
+          title: _titleController.text, 
+          amount: enteredAmount, 
+          date: _selectedDate!, 
+          category: _selectedCategory!
+        )
+      );
+    }
+  }
+
   @override
   void dispose() {
     // This function make sure if certain condition met you will remove the controller from memory
@@ -50,7 +83,7 @@ class _NewExpenseState extends State<NewExpense> {
     _amountsController.dispose();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context){
     return Padding(
@@ -127,9 +160,7 @@ class _NewExpenseState extends State<NewExpense> {
                 child: const Text("Cancel"),
               ),
               ElevatedButton(
-                onPressed: () { 
-                  print(_amountsController.text);
-                }, 
+                onPressed: _submitExpenseData, 
                 child: const Text("Save Expense"),
               )
             ],

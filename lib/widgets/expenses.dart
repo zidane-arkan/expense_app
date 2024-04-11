@@ -29,6 +29,14 @@ class _ExpensesState extends State<Expenses>{
       category: Category.leisure,
     ),
   ];
+  
+  void _addNewExpense(Expense newExpense) {
+    setState(() {
+      expenses.add(newExpense);
+    });
+    // print(expenses[0].date);
+    // print(newExpense.date);
+  }
 
   void _openAddExpense() {
     // When you in class that extends State, flutter automatically adds a context property
@@ -37,7 +45,7 @@ class _ExpensesState extends State<Expenses>{
       // and The location in the tree where this widget builds.
       context: context,
       // If you see builder means must provide a function as a value
-      builder: (ctx)  => const NewExpense(),
+      builder: (ctx)  =>  NewExpense(onNewExpense: _addNewExpense,),
     );
   }
   @override  
