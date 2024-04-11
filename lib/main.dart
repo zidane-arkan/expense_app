@@ -27,10 +27,10 @@ void main() {
         ),
         textTheme: ThemeData().textTheme.copyWith(
           titleLarge: TextStyle(
-            fontWeight: FontWeight.normal, 
+            fontWeight: FontWeight.bold, 
             // This color get override by appBarTheme that we use [foregroundColor]
             color: kColorScheme.onSecondaryContainer, 
-            fontSize: 14
+            fontSize: 16
           ),
         ),
       ),

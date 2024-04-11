@@ -17,12 +17,15 @@ class ExpensesItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(expense.title),
+            Text(
+              expense.title, 
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Color.fromARGB(109, 10, 10, 9)),
+            ),
             const SizedBox(height: 5,),
             Row(
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('\$${(expense.amount).toStringAsFixed(2)}'),
+                Text('\$ ${(expense.amount).toStringAsFixed(2)}'),
                 const SizedBox(width: 5,),
                 const Spacer(),
                 Row(

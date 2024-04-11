@@ -15,6 +15,12 @@ class ExpensesList extends StatelessWidget{
       itemCount: expenses.length, 
       itemBuilder: (ctx, index){
         return Dismissible(
+          background: Container(
+            color: Theme.of(context).colorScheme.error.withOpacity(.85),
+            margin: EdgeInsets.symmetric(
+              horizontal: Theme.of(context).cardTheme.margin!.horizontal,
+            ),
+          ),
           // Uniquely identified widget
           key: ValueKey(expenses[index]),
           // Where direction swiped
