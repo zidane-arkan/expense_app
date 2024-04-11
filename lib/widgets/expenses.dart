@@ -42,6 +42,7 @@ class _ExpensesState extends State<Expenses>{
     setState(() {
       expenses.remove(expense);
     });
+    ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         duration: const Duration(seconds: 3),
@@ -81,7 +82,7 @@ class _ExpensesState extends State<Expenses>{
     return Scaffold(
       appBar: AppBar(
         title : const Text("Expense Tracker App"),
-        backgroundColor: Colors.purple,
+        // backgroundColor: Colors.purple,
         actions: [
           IconButton(
             onPressed: _openAddExpense, 
