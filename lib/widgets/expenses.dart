@@ -38,9 +38,19 @@ class _ExpensesState extends State<Expenses>{
     // print(newExpense.date);
   }
 
+  void _removeExpense(Expense expense) {
+    setState(() {
+      expenses.remove(expense);
+    });
+    // print(expenses[0].date);
+    // print(newExpense.date);
+  }
+
   void _openAddExpense() {
     // When you in class that extends State, flutter automatically adds a context property
     showModalBottomSheet(
+      isScrollControlled: true,
+
       // Context : metadata collection managed by flutter, so in here holds information about widget ex: expenses
       // and The location in the tree where this widget builds.
       context: context,
@@ -68,7 +78,7 @@ class _ExpensesState extends State<Expenses>{
             "The Chart"
           ),
           Expanded(
-            child: ExpensesList(expenses: expenses),
+            child: ExpensesList(onRemoveExpense: _removeExpense, expenses: expenses),
           ),
         ],  
       ),
