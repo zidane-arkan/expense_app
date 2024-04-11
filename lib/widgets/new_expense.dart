@@ -1,10 +1,10 @@
+import "package:expense_app/models/expense.dart";
 import "package:flutter/material.dart";
 import 'package:intl/intl.dart';
 
-
 class NewExpense extends StatefulWidget {
   const NewExpense({super.key});
-  
+
   @override
   State<NewExpense> createState(){
     return _NewExpenseState();
@@ -22,6 +22,7 @@ class _NewExpenseState extends State<NewExpense> {
   final _amountsController = TextEditingController();
   final formatter = DateFormat.yMEd();
   DateTime? _selectedDate ;
+  Category? _selectedCategory = Category.leisure;
 
   void _presentDatePicker() async {
     final now = DateTime.now();
@@ -49,6 +50,7 @@ class _NewExpenseState extends State<NewExpense> {
     _amountsController.dispose();
     super.dispose();
   }
+  
   @override
   Widget build(BuildContext context){
     return Padding(
@@ -96,6 +98,28 @@ class _NewExpenseState extends State<NewExpense> {
           const SizedBox(height: 15,),
           Row(
             children: [
+              DropdownButton(
+                // List of all values that make enum
+                value: _selectedCategory,
+                items: Category.values
+                  .map(
+                    (category) => DropdownMenuItem(
+                      value: category,
+                      child: Text(
+                        category.name.toUpperCase()
+                      ),
+                    ),
+                  ).toList(), 
+                onChanged: (value) {
+                  if(_selectedCategory == null) {
+                    return;
+                  }
+                  setState(() {
+                    _selectedCategory = value;
+                  });
+                }
+              ),
+              const Spacer(),
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
