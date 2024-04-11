@@ -34,23 +34,34 @@ class _ExpensesState extends State<Expenses>{
     setState(() {
       expenses.add(newExpense);
     });
-    // print(expenses[0].date);
-    // print(newExpense.date);
   }
 
   void _removeExpense(Expense expense) {
+    final expenseIndex = expenses.indexOf(expense);
+    // Remove swiped expense
     setState(() {
       expenses.remove(expense);
     });
-    // print(expenses[0].date);
-    // print(newExpense.date);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 3),
+        content: const Text('Expense Deleted'),
+        action: SnackBarAction(
+          label: 'Undo', 
+          onPressed: () {
+            setState(() {
+              expenses.insert(expenseIndex, expense);
+            });
+          }
+        ),
+      )
+    );
   }
 
   void _openAddExpense() {
     // When you in class that extends State, flutter automatically adds a context property
     showModalBottomSheet(
       isScrollControlled: true,
-
       // Context : metadata collection managed by flutter, so in here holds information about widget ex: expenses
       // and The location in the tree where this widget builds.
       context: context,
@@ -60,6 +71,13 @@ class _ExpensesState extends State<Expenses>{
   }
   @override  
   Widget build(BuildContext context){
+    Widget mainContent = const Center(
+      child: Text('No expenses found. Start adding some!'),
+    );
+    
+    if(expenses.isNotEmpty){
+      mainContent = ExpensesList(onRemoveExpense: _removeExpense, expenses: expenses);
+    }
     return Scaffold(
       appBar: AppBar(
         title : const Text("Expense Tracker App"),
@@ -78,7 +96,7 @@ class _ExpensesState extends State<Expenses>{
             "The Chart"
           ),
           Expanded(
-            child: ExpensesList(onRemoveExpense: _removeExpense, expenses: expenses),
+            child: mainContent,
           ),
         ],  
       ),
