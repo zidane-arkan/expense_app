@@ -21,8 +21,9 @@ void main() {
           ),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(),
-          
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kColorScheme.primaryContainer
+          ),
         ),
       ),
       home: const Expenses(),
