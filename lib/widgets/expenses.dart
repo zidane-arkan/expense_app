@@ -77,7 +77,10 @@ class _ExpensesState extends State<Expenses>{
     );
     
     if(expenses.isNotEmpty){
-      mainContent = ExpensesList(onRemoveExpense: _removeExpense, expenses: expenses);
+      mainContent = ExpensesList(
+        onRemoveExpense: _removeExpense, 
+        expenses: expenses
+      );
     }
     return Scaffold(
       appBar: AppBar(

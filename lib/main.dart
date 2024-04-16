@@ -7,6 +7,7 @@ var kColorScheme = ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 96,
 void main() {
   runApp(
     MaterialApp(
+      darkTheme : ThemeData.dark(),
       theme: ThemeData().copyWith(
         colorScheme: kColorScheme,
         appBarTheme: const AppBarTheme().copyWith(
