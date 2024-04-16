@@ -30,8 +30,8 @@ class Chart extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-    final isDarkMode =
-        MediaQuery.of(context).platformBrightness == Brightness.dark;
+    // Find out current system color
+    final isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Container(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.symmetric(
@@ -58,6 +58,7 @@ class Chart extends StatelessWidget{
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 for (final bucket in buckets) // alternative to map()
+                  // Dont need curly braces because expected List of widget                 
                   ChartBar(
                     fill: bucket.totalExpenses == 0
                         ? 0
@@ -68,7 +69,7 @@ class Chart extends StatelessWidget{
           ),
           const SizedBox(height: 12),
           Row(
-            children: buckets
+            children: buckets // Can replace with for ... in ...
                 .map(
                   (bucket) => Expanded(
                     child: Padding(
