@@ -59,6 +59,7 @@ class _ExpensesState extends State<Expenses> {
   void _openAddExpense() {
     // When you in class that extends State, flutter automatically adds a context property
     showModalBottomSheet(
+      useSafeArea: true,
       isScrollControlled: true,
       // Context : metadata collection managed by flutter, so in here holds information about widget ex: expenses
       // and The location in the tree where this widget builds.
