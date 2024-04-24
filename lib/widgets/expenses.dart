@@ -4,8 +4,7 @@ import 'package:expense_app/widgets/expense_container/expenses_list.dart';
 import 'package:expense_app/widgets/new_expense.dart';
 import 'package:expense_app/widgets/chart/chart.dart';
 
-
-class Expenses extends StatefulWidget{
+class Expenses extends StatefulWidget {
   const Expenses({super.key});
 
   @override
@@ -15,8 +14,7 @@ class Expenses extends StatefulWidget{
   }
 }
 
-class _ExpensesState extends State<Expenses>{
-  
+class _ExpensesState extends State<Expenses> {
   List<Expense> expenses = [
     Expense(
       title: "Flutter Course",
@@ -31,7 +29,7 @@ class _ExpensesState extends State<Expenses>{
       category: Category.leisure,
     ),
   ];
-  
+
   void _addNewExpense(Expense newExpense) {
     setState(() {
       expenses.add(newExpense);
@@ -45,20 +43,17 @@ class _ExpensesState extends State<Expenses>{
       expenses.remove(expense);
     });
     ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        duration: const Duration(seconds: 3),
-        content: const Text('Expense Deleted'),
-        action: SnackBarAction(
-          label: 'Undo', 
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: const Duration(seconds: 3),
+      content: const Text('Expense Deleted'),
+      action: SnackBarAction(
+          label: 'Undo',
           onPressed: () {
             setState(() {
               expenses.insert(expenseIndex, expense);
             });
-          }
-        ),
-      )
-    );
+          }),
+    ));
   }
 
   void _openAddExpense() {
@@ -69,41 +64,55 @@ class _ExpensesState extends State<Expenses>{
       // and The location in the tree where this widget builds.
       context: context,
       // If you see builder means must provide a function as a value
-      builder: (ctx)  =>  NewExpense(onNewExpense: _addNewExpense,),
+      builder: (ctx) => NewExpense(
+        onNewExpense: _addNewExpense,
+      ),
     );
   }
-  @override  
-  Widget build(BuildContext context){
+
+  @override
+  Widget build(BuildContext context) {
+    final widthScreen = MediaQuery.of(context).size.width;
     Widget mainContent = const Center(
       child: Text('No expenses found. Start adding some!'),
     );
-    
-    if(expenses.isNotEmpty){
-      mainContent = ExpensesList(
-        onRemoveExpense: _removeExpense, 
-        expenses: expenses
-      );
+
+    if (expenses.isNotEmpty) {
+      mainContent =
+          ExpensesList(onRemoveExpense: _removeExpense, expenses: expenses);
     }
     return Scaffold(
       appBar: AppBar(
-        title : const Text("Expense Tracker App"),
+        title: const Text("Expense Tracker App"),
         // backgroundColor: Colors.purple,
         actions: [
           IconButton(
-            onPressed: _openAddExpense, 
+            onPressed: _openAddExpense,
             icon: const Icon(Icons.add_rounded),
             color: Colors.white,
           )
         ],
       ),
-      body: Column(
-        children: [
-          Chart(expenses: expenses),
-          Expanded(
-            child: mainContent,
-          ),
-        ],  
-      ),
+      body: widthScreen < 600
+          ? Column(
+              children: [
+                Chart(expenses: expenses),
+                Expanded(
+                  child: mainContent,
+                ),
+              ],
+            )
+          // Row also has width.infinity = get as much width it can get
+          : Row(
+              children: [
+                Expanded(
+                  child: Chart(expenses: expenses),
+                ),
+                Expanded(
+                  child: mainContent,
+                ),
+              ],
+            ),
     );
   }
 }
